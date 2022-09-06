@@ -11,12 +11,24 @@
 //     });
 // }
 
+// const choice = document.querySelector(".buttons");
+// choice.addEventListener("click", (event) => {
+//   const player_rps_option = getPlayerChoice(event);
+//   if (player_rps_option === undefined) {
+//     return;
+//   } else {
+//     playRound(getComputerChoice(), getPlayerChoice(event));
+//   }
+// });
+
 // ready(function () {
 //   console.log(getPlayerChoice());
 //   //   playRound(getComputerChoice, getPlayerChoice);
 // });
 
 //---------------------------------------------------------------------
+let playerScore = 0;
+let compScore = 0;
 
 const getComputerChoice = () => {
   let optionsArray = ["rock", "paper", "scissors"];
@@ -40,20 +52,12 @@ const playRound = (computerChoice, playerChoice) => {
   console.log(`comp choice: ${computerChoice}`);
   console.log(`plyr choice: ${playerChoice.toLowerCase()}`);
 
-  if (playerChoice.toLowerCase() === computerChoice) {
-    console.log("DRAW");
+  if (playerChoice.toLowerCase() === "rock" && computerChoice === "scissors") {
+    // console.log("you win");
+    playerScore++;
+    console.log(`main, plyr score: ${playerScore}`);
   }
 };
-
-// const choice = document.querySelector(".buttons");
-// choice.addEventListener("click", (event) => {
-//   const player_rps_option = getPlayerChoice(event);
-//   if (player_rps_option === undefined) {
-//     return;
-//   } else {
-//     playRound(getComputerChoice(), getPlayerChoice(event));
-//   }
-// });
 
 function ready(callback) {
   // in case the document is already rendered
@@ -67,8 +71,9 @@ function ready(callback) {
 }
 
 ready(function () {
-  let title = document.createElement("div");
+  console.log("---------------------");
 
+  let title = document.createElement("div");
   title.className = " font-bold text-white text-5xl";
   title.textContent = "ROCK PAPER SCISSORS";
 
