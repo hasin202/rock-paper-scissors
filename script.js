@@ -7,12 +7,14 @@ let compChoiceBox;
 let playerChoiceBox;
 let displayCompChoiceElement;
 let displayPlayerChoiceElement;
+let displayPlayerScore;
+let displayCompScore;
 
 const displayCompChoice = (compRPSChoice) => {
   if (compChoiceBox === undefined) {
     compChoiceBox = document.createElement("div");
     compChoiceBox.className =
-      "flex flex-col justify-center items-center px-4 py-2 font-light text-white text-4xl border border-white rounded";
+      "flex flex-col justify-center items-center px-4 py-2 font-light text-white text-4xl border border-white rounded gap-y-4";
 
     const compChoiceTitle = document.createElement("p");
     compChoiceTitle.className = "font-semibold text-2xl";
@@ -31,7 +33,7 @@ const displayPlayerChoice = (playerChoice) => {
   if (playerChoiceBox === undefined) {
     playerChoiceBox = document.createElement("div");
     playerChoiceBox.className =
-      "flex flex-col justify-center items-center px-4 py-2 font-light text-white text-4xl border border-white rounded";
+      "flex flex-col justify-center items-center px-4 py-2 font-light text-white text-4xl border border-white rounded gap-y-4";
 
     const playerChoiceTitle = document.createElement("p");
     playerChoiceTitle.className = "font-semibold text-2xl";
@@ -71,6 +73,12 @@ const getPlayerChoice = (event) => {
   return rps_choice;
 };
 
+const displayWinner = (winner) => {
+  document.querySelector(".buttons").innerHTML = "";
+  document.getElementById("card-container").className = "hidden";
+  // console.log(document.querySelector(".buttons"));
+};
+
 const playRound = (computerChoice, playerChoice) => {
   if (
     (playerChoice === "rock" && computerChoice === "scissors") ||
@@ -85,9 +93,37 @@ const playRound = (computerChoice, playerChoice) => {
   ) {
     compScore++;
   }
+  if (!displayPlayerScore) {
+    displayPlayerScore = document.createElement("p");
+    playerChoiceBox.append(displayPlayerScore);
+  }
+
+  if (!displayCompScore) {
+    displayCompScore = document.createElement("p");
+    compChoiceBox.append(displayCompScore);
+  }
+
+  displayPlayerScore.innerHTML = `Score: ${playerScore}`;
+  displayCompScore.innerHTML = `Score: ${compScore}`;
+
   console.log("---------------------");
   console.log(`plyr scr: ${playerScore}`);
   console.log(`comp scr: ${compScore}`);
+
+  if (compScore === 5) {
+    displayWinner("The computer won");
+  }
+  if (playerScore === 5) {
+    displayWinner("You won");
+  }
+};
+
+const displayButtons = (weapon) => {
+  const btn = document.createElement("button");
+  btn.className =
+    "w-80 bg-cyan-500 shadow-lg shadow-cyan-500/50 text-white rounded text-6xl hover:bg-blue-500 hover:shadow-blue-500/50";
+  btn.innerHTML = `${weapon}`;
+  document.querySelector(".buttons").appendChild(btn);
 };
 
 function ready(callback) {
@@ -102,6 +138,9 @@ function ready(callback) {
 }
 
 ready(function () {
+  displayButtons("ROCK");
+  displayButtons("PAPER");
+  displayButtons("SCISSORS");
   const rps_choice = document.querySelector(".buttons");
   rps_choice.addEventListener("click", (event) => {
     const player_rps_option = getPlayerChoice(event);
