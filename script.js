@@ -75,8 +75,11 @@ const getPlayerChoice = (event) => {
 
 const displayWinner = (winner) => {
   document.querySelector(".buttons").innerHTML = "";
-  document.getElementById("card-container").className = "hidden";
-  // console.log(document.querySelector(".buttons"));
+  // document.getElementById("card-container").className = "hidden";
+  const message = document.createElement("p");
+  message.className = "w-fit text-white text-4xl font-light";
+  message.innerHTML = `${winner}!`;
+  document.querySelector("#messageContainer").appendChild(message);
 };
 
 const playRound = (computerChoice, playerChoice) => {
