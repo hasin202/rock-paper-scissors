@@ -5,10 +5,10 @@ let compScore = 0;
 let gameMessage = "";
 let compChoiceBox;
 let playerChoiceBox;
-let choice;
-let plyrChoice;
+let displayCompChoiceElement;
+let displayPlayerChoiceElement;
 
-const displayCompChoice = (compChoice) => {
+const displayCompChoice = (compRPSChoice) => {
   if (compChoiceBox === undefined) {
     compChoiceBox = document.createElement("div");
     compChoiceBox.className =
@@ -19,13 +19,12 @@ const displayCompChoice = (compChoice) => {
     compChoiceTitle.innerHTML = "COMP";
     compChoiceBox.append(compChoiceTitle);
 
-    choice = document.createElement("p");
-    choice.className = "block";
-    compChoiceBox.appendChild(choice);
+    displayCompChoiceElement = document.createElement("p");
+    compChoiceBox.appendChild(displayCompChoiceElement);
     document.getElementById("card-container").appendChild(compChoiceBox);
   }
 
-  choice.innerHTML = `${compChoice}`;
+  displayCompChoiceElement.innerHTML = `${compRPSChoice}`;
 };
 
 const displayPlayerChoice = (playerChoice) => {
@@ -39,22 +38,22 @@ const displayPlayerChoice = (playerChoice) => {
     playerChoiceTitle.innerHTML = "YOU";
     playerChoiceBox.append(playerChoiceTitle);
 
-    plyrChoice = document.createElement("p");
-    playerChoiceBox.appendChild(plyrChoice);
+    displayPlayerChoiceElement = document.createElement("p");
+    playerChoiceBox.appendChild(displayPlayerChoiceElement);
     document.getElementById("card-container").appendChild(playerChoiceBox);
   }
-  plyrChoice.innerHTML = `${playerChoice}`;
+  displayPlayerChoiceElement.innerHTML = `${playerChoice}`;
 };
 
 const getComputerChoice = () => {
   let optionsArray = ["rock", "paper", "scissors"];
   let randomNumber = Math.floor(Math.random() * optionsArray.length);
 
-  const compChoice = optionsArray[randomNumber];
+  const compRPSChoice = optionsArray[randomNumber];
 
-  displayCompChoice(compChoice);
+  displayCompChoice(compRPSChoice);
 
-  return compChoice;
+  return compRPSChoice;
 };
 
 const getPlayerChoice = (event) => {
