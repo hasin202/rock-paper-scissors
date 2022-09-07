@@ -30,17 +30,20 @@
 let playerScore = 0;
 let compScore = 0;
 let gameMessage = "";
+let compChoiceText;
 
 const getComputerChoice = () => {
   let optionsArray = ["rock", "paper", "scissors"];
   let randomNumber = Math.floor(Math.random() * optionsArray.length);
+  console.log(compChoiceText);
 
-  let compChoiceText = document.createElement("div");
-  compChoiceText.className = " font-light text-white text-4xl";
+  if (compChoiceText === undefined) {
+    compChoiceText = document.createElement("div");
+    compChoiceText.className = " font-light text-white text-4xl";
+  }
 
-  //   compChoiceText.textContent = `Computer chose: ${optionsArray[randomNumber]}`;
   compChoiceText.innerHTML = `<p>
-      Computer chose: <span>${optionsArray[randomNumber]}</span>
+      Computer chose: ${optionsArray[randomNumber]}
     </p>`;
   document.getElementById("text-output-container").appendChild(compChoiceText);
 
