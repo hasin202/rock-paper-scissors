@@ -29,10 +29,21 @@
 //---------------------------------------------------------------------
 let playerScore = 0;
 let compScore = 0;
+let gameMessage = "";
 
 const getComputerChoice = () => {
   let optionsArray = ["rock", "paper", "scissors"];
   let randomNumber = Math.floor(Math.random() * optionsArray.length);
+
+  let compChoiceText = document.createElement("div");
+  compChoiceText.className = " font-light text-white text-4xl";
+
+  //   compChoiceText.textContent = `Computer chose: ${optionsArray[randomNumber]}`;
+  compChoiceText.innerHTML = `<p>
+      Computer chose: <span>${optionsArray[randomNumber]}</span>
+    </p>`;
+  document.getElementById("text-output-container").appendChild(compChoiceText);
+
   return optionsArray[randomNumber];
 };
 
@@ -53,10 +64,25 @@ const playRound = (computerChoice, playerChoice) => {
   console.log(`plyr choice: ${playerChoice.toLowerCase()}`);
 
   if (playerChoice.toLowerCase() === "rock" && computerChoice === "scissors") {
-    // console.log("you win");
     playerScore++;
-    console.log(`main, plyr score: ${playerScore}`);
   }
+  if (playerChoice.toLowerCase() === "rock" && computerChoice === "paper") {
+    compScore++;
+  }
+  if (playerChoice.toLowerCase() === "paper" && computerChoice === "rock") {
+    playerScore++;
+  }
+  if (playerChoice.toLowerCase() === "paper" && computerChoice === "scissors") {
+    compScore++;
+  }
+  if (playerChoice.toLowerCase() === "scissors" && computerChoice === "paper") {
+    playerScore++;
+  }
+  if (playerChoice.toLowerCase() === "scissors" && computerChoice === "rock") {
+    compScore++;
+  }
+  console.log(`main, plyr score: ${playerScore}`);
+  console.log(`main, comp score: ${compScore}`);
 };
 
 function ready(callback) {
@@ -75,9 +101,10 @@ ready(function () {
 
   let title = document.createElement("div");
   title.className = " font-bold text-white text-5xl";
-  title.textContent = "ROCK PAPER SCISSORS";
 
+  title.textContent = "ROCK PAPER SCISSORS";
   document.getElementById("text-output-container").appendChild(title);
+
   const choice = document.querySelector(".buttons");
   choice.addEventListener("click", (event) => {
     const player_rps_option = getPlayerChoice(event);
