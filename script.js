@@ -73,8 +73,23 @@ const getPlayerChoice = (event) => {
   return rps_choice;
 };
 
+const displayScore = () => {
+  if (!displayPlayerScore) {
+    displayPlayerScore = document.createElement("p");
+    playerChoiceBox.append(displayPlayerScore);
+  }
+
+  if (!displayCompScore) {
+    displayCompScore = document.createElement("p");
+    compChoiceBox.append(displayCompScore);
+  }
+
+  displayPlayerScore.innerHTML = `Score: ${playerScore}`;
+  displayCompScore.innerHTML = `Score: ${compScore}`;
+};
+
 const displayWinner = (winner) => {
-  document.querySelector(".buttons").className = "hidden";
+  document.querySelector(".buttons").innerHTML = "";
 
   const message = document.createElement("p");
   message.className = "w-fit text-white text-4xl font-light";
@@ -98,22 +113,12 @@ const playRound = (computerChoice, playerChoice) => {
   ) {
     compScore++;
   }
-  if (!displayPlayerScore) {
-    displayPlayerScore = document.createElement("p");
-    playerChoiceBox.append(displayPlayerScore);
-  }
 
-  if (!displayCompScore) {
-    displayCompScore = document.createElement("p");
-    compChoiceBox.append(displayCompScore);
-  }
+  displayScore();
 
-  displayPlayerScore.innerHTML = `Score: ${playerScore}`;
-  displayCompScore.innerHTML = `Score: ${compScore}`;
-
-  console.log("---------------------");
-  console.log(`plyr scr: ${playerScore}`);
-  console.log(`comp scr: ${compScore}`);
+  // console.log("---------------------");
+  // console.log(`plyr scr: ${playerScore}`);
+  // console.log(`comp scr: ${compScore}`);
 
   if (compScore === 5) {
     displayWinner("The computer won");
@@ -124,10 +129,12 @@ const playRound = (computerChoice, playerChoice) => {
 };
 
 const restart = () => {
-  playerScore, (compScore = 0);
-  console.log("---------RESTART-----------");
-  console.log(`plyr scr: ${playerScore}`);
-  console.log(`comp scr: ${compScore}`);
+  playerScore = 0;
+  compScore = 0;
+  document.querySelector(".buttons").innerHTML = "";
+  document.querySelector("#messageContainer").innerHTML = "";
+  displayScore();
+  callAllDisplayButtons();
 };
 
 const displayButtons = (weapon) => {
@@ -135,11 +142,14 @@ const displayButtons = (weapon) => {
   btn.className =
     "w-80 bg-cyan-500 shadow-lg shadow-cyan-500/50 text-white rounded text-6xl hover:bg-blue-500 hover:shadow-blue-500/50";
   btn.innerHTML = `${weapon}`;
-  if (weapon === "RESTART") {
-    document.querySelector(".restart-Button").appendChild(btn);
-  } else {
-    document.querySelector(".buttons").appendChild(btn);
-  }
+
+  document.querySelector(".buttons").appendChild(btn);
+};
+
+const callAllDisplayButtons = () => {
+  displayButtons("ROCK");
+  displayButtons("PAPER");
+  displayButtons("SCISSORS");
 };
 
 function ready(callback) {
@@ -154,16 +164,16 @@ function ready(callback) {
 }
 
 ready(function () {
-  displayButtons("ROCK");
-  displayButtons("PAPER");
-  displayButtons("SCISSORS");
+  callAllDisplayButtons();
   const rps_choice = document.querySelector(".buttons");
   rps_choice.addEventListener("click", (event) => {
     const player_rps_option = getPlayerChoice(event);
     if (player_rps_option === undefined) {
       return;
+    } else if (player_rps_option === "restart") {
+      restart();
     } else {
-      playRound(getComputerChoice(), getPlayerChoice(event));
+      playRound(getComputerChoice(), player_rps_option);
     }
   });
 });
