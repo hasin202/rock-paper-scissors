@@ -74,12 +74,14 @@ const getPlayerChoice = (event) => {
 };
 
 const displayWinner = (winner) => {
-  document.querySelector(".buttons").innerHTML = "";
-  // document.getElementById("card-container").className = "hidden";
+  document.querySelector(".buttons").className = "hidden";
+
   const message = document.createElement("p");
   message.className = "w-fit text-white text-4xl font-light";
   message.innerHTML = `${winner}!`;
   document.querySelector("#messageContainer").appendChild(message);
+
+  displayButtons("RESTART");
 };
 
 const playRound = (computerChoice, playerChoice) => {
@@ -121,12 +123,23 @@ const playRound = (computerChoice, playerChoice) => {
   }
 };
 
+const restart = () => {
+  playerScore, (compScore = 0);
+  console.log("---------RESTART-----------");
+  console.log(`plyr scr: ${playerScore}`);
+  console.log(`comp scr: ${compScore}`);
+};
+
 const displayButtons = (weapon) => {
   const btn = document.createElement("button");
   btn.className =
     "w-80 bg-cyan-500 shadow-lg shadow-cyan-500/50 text-white rounded text-6xl hover:bg-blue-500 hover:shadow-blue-500/50";
   btn.innerHTML = `${weapon}`;
-  document.querySelector(".buttons").appendChild(btn);
+  if (weapon === "RESTART") {
+    document.querySelector(".restart-Button").appendChild(btn);
+  } else {
+    document.querySelector(".buttons").appendChild(btn);
+  }
 };
 
 function ready(callback) {
