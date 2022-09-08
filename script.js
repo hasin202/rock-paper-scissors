@@ -76,11 +76,13 @@ const getPlayerChoice = (event) => {
 const displayScore = () => {
   if (!displayPlayerScore) {
     displayPlayerScore = document.createElement("p");
+    displayPlayerScore.className = "text-2xl";
     playerChoiceBox.append(displayPlayerScore);
   }
 
   if (!displayCompScore) {
     displayCompScore = document.createElement("p");
+    displayCompScore.className = "text-2xl";
     compChoiceBox.append(displayCompScore);
   }
 
@@ -116,10 +118,6 @@ const playRound = (computerChoice, playerChoice) => {
 
   displayScore();
 
-  // console.log("---------------------");
-  // console.log(`plyr scr: ${playerScore}`);
-  // console.log(`comp scr: ${compScore}`);
-
   if (compScore === 5) {
     displayWinner("The computer won");
   }
@@ -153,7 +151,6 @@ const callAllDisplayButtons = () => {
 };
 
 function ready(callback) {
-  // in case the document is already rendered
   if (document.readyState != "loading") callback();
   else if (document.addEventListener)
     document.addEventListener("DOMContentLoaded", callback);
